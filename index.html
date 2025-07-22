@@ -2,95 +2,111 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Restaurant Menu</title>
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
     body {
-      background: #000;
+      margin: 0;
+      background-color: #000;
+      color: white;
       font-family: Arial, sans-serif;
-      overflow: hidden;
       display: flex;
       flex-direction: column;
       align-items: center;
     }
 
-    .menu-title {
-      color: white;
+    h1 {
+      margin: 20px;
       font-size: 24px;
-      font-weight: bold;
-      margin: 20px 0 10px;
     }
 
-    .video-container {
+    .video-wrapper {
+      position: relative;
       width: 100%;
-      height: calc(100vh - 80px);
+      max-width: 600px;
+      height: calc(100vh - 100px);
       display: flex;
       justify-content: center;
       align-items: center;
-      position: relative;
-      touch-action: pan-y;
-      background: black;
     }
 
     video {
-      max-width: 100%;
-      max-height: 100%;
+      width: 100%;
+      height: 100%;
       object-fit: contain;
+      background: #000;
+    }
+
+    .arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 40px;
+      color: white;
+      background: rgba(0,0,0,0.5);
+      padding: 10px;
+      border-radius: 50%;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .arrow.left {
+      left: 10px;
+    }
+
+    .arrow.right {
+      right: 10px;
     }
   </style>
 </head>
 <body>
 
-  <div class="menu-title">MENU</div>
+  <h1>MENU</h1>
 
-  <div class="video-container" id="videoContainer">
+  <div class="video-wrapper" id="videoWrapper">
+    <div class="arrow left" onclick="prevVideo()">&#10094;</div>
     <video id="menuVideo" autoplay muted loop playsinline>
       <source src="menu1.mp4" type="video/mp4" />
       Your browser does not support the video tag.
     </video>
+    <div class="arrow right" onclick="nextVideo()">&#10095;</div>
   </div>
 
   <script>
-    const videos = ['menu1.mp4', 'menu2.mp4', 'menu3.mp4'];
-    let current = 0;
     const video = document.getElementById('menuVideo');
-    const container = document.getElementById('videoContainer');
-
-    let startX = 0;
+    const sources = ['menu1.mp4', 'menu2.mp4', 'menu3.mp4'];
+    let current = 0;
 
     function switchTo(index) {
+      if (index < 0) index = sources.length - 1;
+      if (index >= sources.length) index = 0;
       current = index;
-      video.src = videos[current];
+      video.src = sources[current];
       video.load();
       video.play();
     }
 
-    container.addEventListener('touchstart', (e) => {
+    function nextVideo() {
+      switchTo(current + 1);
+    }
+
+    function prevVideo() {
+      switchTo(current - 1);
+    }
+
+    // Touch/swipe support
+    let startX = 0;
+    document.getElementById('videoWrapper').addEventListener('touchstart', e => {
       startX = e.touches[0].clientX;
     });
 
-    container.addEventListener('touchend', (e) => {
+    document.getElementById('videoWrapper').addEventListener('touchend', e => {
       const endX = e.changedTouches[0].clientX;
-      const diffX = endX - startX;
-
-      if (Math.abs(diffX) > 50) {
-        if (diffX < 0) {
-          // swipe left
-          current = (current + 1) % videos.length;
-        } else {
-          // swipe right
-          current = (current - 1 + videos.length) % videos.length;
-        }
-        switchTo(current);
-      }
+      const diff = startX - endX;
+      if (diff > 50) nextVideo();    // swipe left
+      else if (diff < -50) prevVideo(); // swipe right
     });
   </script>
-
 </body>
 </html>
+
