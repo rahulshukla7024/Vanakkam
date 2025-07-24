@@ -4,126 +4,114 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Menu Viewer</title>
-  <link rel="icon" type="image/png" href="logo.png" />
+  <link rel="icon" href="logo.png" type="image/png">
   <style>
     body {
       margin: 0;
-      background-color: #000;
-      overflow-x: hidden;
+      background: #fff;
       font-family: sans-serif;
-    }
-
-    .viewer-container {
-      position: relative;
-      width: 100%;
-      height: 100vh;
       display: flex;
       justify-content: center;
       align-items: center;
+      height: 100vh;
+    }
+
+    .menu-container {
+      position: relative;
+      width: 100%;
+      max-width: 480px;
+      height: auto;
       overflow: hidden;
+      background-color: #fff;
     }
 
     .menu-image {
-      max-width: 100%;
-      max-height: 100%;
-      object-fit: contain;
-      transition: opacity 0.5s ease;
+      width: 100%;
+      display: none;
+    }
+
+    .menu-image.active {
+      display: block;
+    }
+
+    .arrows {
+      position: absolute;
+      top: 50%;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      transform: translateY(-50%);
+      padding: 0 10px;
+      box-sizing: border-box;
     }
 
     .arrow {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      font-size: 40px;
-      color: white;
-      background-color: rgba(0, 0, 0, 0.4);
+      background: rgba(0, 0, 0, 0.5);
+      color: #fff;
       border: none;
-      padding: 10px 15px;
+      font-size: 24px;
+      padding: 6px 12px;
+      border-radius: 50%;
       cursor: pointer;
-      z-index: 10;
       user-select: none;
     }
 
-    .arrow.left {
-      left: 10px;
-    }
-
-    .arrow.right {
-      right: 10px;
-    }
-
-    .scroll-indicator {
-      height: 6px;
-      background: #444;
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-    }
-
-    .scroll-bar {
-      height: 100%;
-      width: 0%;
-      background: #fbb03b;
-      transition: width 0.3s ease;
+    @media (max-width: 768px) {
+      .arrow {
+        font-size: 20px;
+        padding: 4px 10px;
+      }
     }
   </style>
 </head>
 <body>
 
-  <div class="viewer-container">
-    <button class="arrow left" onclick="prevImage()">‹</button>
-    <img id="menuImage" class="menu-image" src="menu1.jpg" alt="Menu Image">
-    <button class="arrow right" onclick="nextImage()">›</button>
-    <div class="scroll-indicator"><div id="scrollBar" class="scroll-bar"></div></div>
+  <div class="menu-container" id="menuContainer">
+    <img src="menu1.jpg" class="menu-image active" />
+    <img src="menu2.jpg" class="menu-image" />
+    <img src="menu3.jpg" class="menu-image" />
+    <img src="menu4.jpg" class="menu-image" />
+    <img src="menu5.jpg" class="menu-image" />
+
+    <div class="arrows">
+      <button class="arrow" onclick="prevImage()">&#8592;</button>
+      <button class="arrow" onclick="nextImage()">&#8594;</button>
+    </div>
   </div>
 
   <script>
-    const images = ["menu1.jpg", "menu2.jpg", "menu3.jpg", "menu4.jpg", "menu5.jpg"];
+    const images = document.querySelectorAll('.menu-image');
     let currentIndex = 0;
 
-    const menuImage = document.getElementById("menuImage");
-    const scrollBar = document.getElementById("scrollBar");
-
-    function updateImage() {
-      menuImage.style.opacity = 0;
-      setTimeout(() => {
-        menuImage.src = images[currentIndex];
-        menuImage.style.opacity = 1;
-        updateScrollBar();
-      }, 200);
-    }
-
-    function nextImage() {
-      if (currentIndex < images.length - 1) {
-        currentIndex++;
-        updateImage();
-      }
+    function showImage(index) {
+      images.forEach(img => img.classList.remove('active'));
+      images[index].classList.add('active');
     }
 
     function prevImage() {
-      if (currentIndex > 0) {
-        currentIndex--;
-        updateImage();
-      }
+      currentIndex = (currentIndex - 1 + images.length) % images.length;
+      showImage(currentIndex);
     }
 
-    function updateScrollBar() {
-      const percent = ((currentIndex + 1) / images.length) * 100;
-      scrollBar.style.width = percent + "%";
+    function nextImage() {
+      currentIndex = (currentIndex + 1) % images.length;
+      showImage(currentIndex);
     }
 
-    // Swipe support
+    // Swipe support for mobile
     let startX = 0;
-    document.addEventListener("touchstart", (e) => startX = e.touches[0].clientX);
-    document.addEventListener("touchend", (e) => {
-      const endX = e.changedTouches[0].clientX;
-      if (startX - endX > 50) nextImage();
-      if (endX - startX > 50) prevImage();
+    const container = document.getElementById('menuContainer');
+
+    container.addEventListener('touchstart', (e) => {
+      startX = e.touches[0].clientX;
     });
 
-    // Initialize scroll bar
-    updateScrollBar();
+    container.addEventListener('touchend', (e) => {
+      const endX = e.changedTouches[0].clientX;
+      const diff = startX - endX;
+      if (diff > 50) nextImage();
+      else if (diff < -50) prevImage();
+    });
   </script>
 </body>
 </html>
