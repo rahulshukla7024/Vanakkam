@@ -7,26 +7,35 @@
   <link rel="icon" type="image/png" href="logo.png" />
   <style>
     html, body {
-      height: 100%;
       margin: 0;
       padding: 0;
-      overflow: hidden;
+      height: 100%;
       background-color: #934117;
+      overflow: hidden;
     }
+
     .swiper {
       width: 100vw;
       height: 100vh;
     }
+
+    .swiper-wrapper {
+      height: 100%;
+    }
+
     .swiper-slide {
       display: flex;
       align-items: center;
       justify-content: center;
       background-color: #934117;
+      height: 100%;
     }
+
     video {
-      width: 100vw;
-      height: 100vh;
+      width: 100%;
+      height: 100%;
       object-fit: cover;
+      display: block;
     }
   </style>
 
@@ -75,6 +84,7 @@
     new Swiper('.swiper', {
       direction: 'horizontal',
       loop: false,
+      allowTouchMove: true,
     });
   </script>
 </body>
