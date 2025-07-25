@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Menu Viewer</title>
+  <title>Menu Scroll View</title>
   <link rel="icon" href="logo.png" type="image/png" />
   <style>
     * {
@@ -12,110 +12,37 @@
       box-sizing: border-box;
     }
 
-    html, body {
-      height: 100%;
+    body {
       background-color: #000;
+      overflow-y: scroll;
+      -webkit-overflow-scrolling: touch;
     }
 
-    .menu-container {
-      position: relative;
-      width: 100vw;
-      height: 100vh;
-      overflow: hidden;
-      background: #000;
-    }
-
-    .menu-image {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      max-width: 100%;
-      max-height: 100%;
-      transform: translate(-50%, -50%);
-      object-fit: contain;
-      display: none;
-    }
-
-    .menu-image.active {
-      display: block;
-    }
-
-    .arrows {
-      position: absolute;
-      top: 50%;
-      width: 100%;
+    .menu-wrapper {
       display: flex;
-      justify-content: space-between;
-      transform: translateY(-50%);
-      padding: 0 10px;
-      z-index: 10;
+      flex-direction: column;
+      align-items: center;
+      padding: 10px;
     }
 
-    .arrow {
-      background: rgba(0, 0, 0, 0.5);
-      color: white;
-      border: none;
-      font-size: 24px;
-      padding: 6px 12px;
-      border-radius: 50%;
-      cursor: pointer;
-    }
-
-    @media (max-width: 768px) {
-      .arrow {
-        font-size: 20px;
-        padding: 4px 10px;
-      }
+    .menu-wrapper img {
+      width: 100%;
+      max-width: 800px;
+      height: auto;
+      margin-bottom: 10px;
+      border-radius: 8px;
+      object-fit: contain;
+      background-color: #000;
     }
   </style>
 </head>
 <body>
-  <div class="menu-container" id="menuContainer">
-    <img src="menu1.jpg" class="menu-image active" />
-    <img src="menu2.jpg" class="menu-image" />
-    <img src="menu3.jpg" class="menu-image" />
-    <img src="menu4.jpg" class="menu-image" />
-    <img src="menu5.jpg" class="menu-image" />
-
-    <div class="arrows">
-      <button class="arrow" onclick="prevImage()">&#8592;</button>
-      <button class="arrow" onclick="nextImage()">&#8594;</button>
-    </div>
+  <div class="menu-wrapper">
+    <img src="menu1.jpg" alt="Menu Page 1" />
+    <img src="menu2.jpg" alt="Menu Page 2" />
+    <img src="menu3.jpg" alt="Menu Page 3" />
+    <img src="menu4.jpg" alt="Menu Page 4" />
+    <img src="menu5.jpg" alt="Menu Page 5" />
   </div>
-
-  <script>
-    const images = document.querySelectorAll('.menu-image');
-    let currentIndex = 0;
-
-    function showImage(index) {
-      images.forEach(img => img.classList.remove('active'));
-      images[index].classList.add('active');
-    }
-
-    function prevImage() {
-      currentIndex = (currentIndex - 1 + images.length) % images.length;
-      showImage(currentIndex);
-    }
-
-    function nextImage() {
-      currentIndex = (currentIndex + 1) % images.length;
-      showImage(currentIndex);
-    }
-
-    // Swipe support
-    let startX = 0;
-    const container = document.getElementById('menuContainer');
-
-    container.addEventListener('touchstart', (e) => {
-      startX = e.touches[0].clientX;
-    });
-
-    container.addEventListener('touchend', (e) => {
-      const endX = e.changedTouches[0].clientX;
-      const diff = startX - endX;
-      if (diff > 50) nextImage();
-      else if (diff < -50) prevImage();
-    });
-  </script>
 </body>
 </html>
