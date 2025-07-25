@@ -2,18 +2,80 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <title>Vanakkam Menu</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Swipe Menu</title>
+  <link rel="icon" type="image/png" href="logo.png" />
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      background-color: #934117;
+    }
+    .swiper {
+      width: 100vw;
+      height: 100vh;
+    }
+    .swiper-slide {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: #934117;
+    }
+    video {
+      width: 100vw;
+      height: 100vh;
+      object-fit: contain;
+    }
+  </style>
+
+  <!-- SwiperJS CSS -->
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+  />
 </head>
 <body>
-  <div class="slider" id="slider">
-    <div class="slide"><img src="menu1.jpg" alt="Menu 1" /></div>
-    <div class="slide"><img src="menu2.jpg" alt="Menu 2" /></div>
-    <div class="slide"><img src="menu3.jpg" alt="Menu 3" /></div>
-    <!-- Add more slides here -->
+
+  <!-- Swiper -->
+  <div class="swiper">
+    <div class="swiper-wrapper">
+      <div class="swiper-slide">
+        <video autoplay muted loop playsinline>
+          <source src="menu1.mp4" type="video/mp4" />
+        </video>
+      </div>
+      <div class="swiper-slide">
+        <video autoplay muted loop playsinline>
+          <source src="menu2.mp4" type="video/mp4" />
+        </video>
+      </div>
+      <div class="swiper-slide">
+        <video autoplay muted loop playsinline>
+          <source src="menu3.mp4" type="video/mp4" />
+        </video>
+      </div>
+      <div class="swiper-slide">
+        <video autoplay muted loop playsinline>
+          <source src="menu4.mp4" type="video/mp4" />
+        </video>
+      </div>
+      <div class="swiper-slide">
+        <video autoplay muted loop playsinline>
+          <source src="menu5.mp4" type="video/mp4" />
+        </video>
+      </div>
+    </div>
   </div>
 
-  <script src="script.js"></script>
+  <!-- SwiperJS JS -->
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+  <script>
+    new Swiper('.swiper', {
+      direction: 'horizontal',
+      loop: false,
+    });
+  </script>
 </body>
 </html>
