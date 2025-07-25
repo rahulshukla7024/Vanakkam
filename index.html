@@ -6,27 +6,31 @@
   <title>Menu Viewer</title>
   <link rel="icon" href="logo.png" type="image/png">
   <style>
-    body {
+    * {
       margin: 0;
-      background: #fff;
-      font-family: sans-serif;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      height: 100%;
+      background: #000;
+      overflow: hidden;
     }
 
     .menu-container {
       position: relative;
-      width: 100%;
-      max-width: 480px;
-      height: auto;
+      width: 100vw;
+      height: 100vh;
       overflow: hidden;
-      background-color: #fff;
+      background: #000;
     }
 
     .menu-image {
+      position: absolute;
       width: 100%;
+      height: 100%;
+      object-fit: cover;
       display: none;
     }
 
@@ -42,18 +46,17 @@
       justify-content: space-between;
       transform: translateY(-50%);
       padding: 0 10px;
-      box-sizing: border-box;
+      z-index: 10;
     }
 
     .arrow {
-      background: rgba(0, 0, 0, 0.5);
+      background: rgba(0, 0, 0, 0.4);
       color: #fff;
       border: none;
       font-size: 24px;
       padding: 6px 12px;
       border-radius: 50%;
       cursor: pointer;
-      user-select: none;
     }
 
     @media (max-width: 768px) {
@@ -65,7 +68,6 @@
   </style>
 </head>
 <body>
-
   <div class="menu-container" id="menuContainer">
     <img src="menu1.jpg" class="menu-image active" />
     <img src="menu2.jpg" class="menu-image" />
@@ -98,7 +100,7 @@
       showImage(currentIndex);
     }
 
-    // Swipe support for mobile
+    // Swipe support
     let startX = 0;
     const container = document.getElementById('menuContainer');
 
