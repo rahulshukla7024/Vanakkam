@@ -2,20 +2,17 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Menu</title>
   <link rel="icon" type="image/png" href="logo.png" />
   <style>
-    * {
+    html, body {
       margin: 0;
       padding: 0;
-      box-sizing: border-box;
-    }
-
-    html, body {
-      background-color: #000;
-      width: 100%;
+      height: 100%;
       overflow-x: hidden;
+      background-color: black;
+      font-family: sans-serif;
     }
 
     .video-container {
@@ -28,12 +25,12 @@
     video {
       width: 100%;
       height: 100%;
-      object-fit: contain;
-      background-color: black;
+      object-fit: cover; /* Ensures full screen and removes gaps */
       display: block;
+      background-color: black;
     }
 
-    /* Scrollbar styles */
+    /* Scrollbar styles (like Canva) */
     ::-webkit-scrollbar {
       width: 6px;
     }
@@ -51,27 +48,27 @@
 <body>
   <div class="video-container">
     <video autoplay muted loop playsinline>
-      <source src="menu1.mp4" type="video/mp4">
+      <source src="menu1.mp4" type="video/mp4" />
     </video>
   </div>
   <div class="video-container">
     <video autoplay muted loop playsinline>
-      <source src="menu2.mp4" type="video/mp4">
+      <source src="menu2.mp4" type="video/mp4" />
     </video>
   </div>
   <div class="video-container">
     <video autoplay muted loop playsinline>
-      <source src="menu3.mp4" type="video/mp4">
+      <source src="menu3.mp4" type="video/mp4" />
     </video>
   </div>
   <div class="video-container">
     <video autoplay muted loop playsinline>
-      <source src="menu4.mp4" type="video/mp4">
+      <source src="menu4.mp4" type="video/mp4" />
     </video>
   </div>
   <div class="video-container">
     <video autoplay muted loop playsinline>
-      <source src="menu5.mp4" type="video/mp4">
+      <source src="menu5.mp4" type="video/mp4" />
     </video>
   </div>
 </body>
