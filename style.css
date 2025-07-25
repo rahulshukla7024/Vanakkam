@@ -3,48 +3,38 @@
   padding: 0;
   box-sizing: border-box;
 }
+
 html, body {
-  margin: 0;
-  padding: 0;
   height: 100%;
-}
-body {
-  overflow: hidden;
+  width: 100%;
   background-color: #934117;
+  overflow: hidden;
 }
 
-.carousel {
+.slider {
   display: flex;
-  overflow-x: scroll;
-  scroll-snap-type: x mandatory;
   width: 100vw;
   height: 100vh;
+  overflow: hidden;
+  touch-action: pan-y;
+  scroll-snap-type: x mandatory;
   scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
 }
 
 .slide {
-  flex: none;
+  flex-shrink: 0;
   width: 100vw;
   height: 100vh;
   scroll-snap-align: start;
-  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-video {
+.slide img {
   width: 100%;
   height: 100%;
   object-fit: contain;
-  display: block;
 }
 
-/* Scrollbar optional styling */
-.carousel::-webkit-scrollbar {
-  height: 6px;
-}
-.carousel::-webkit-scrollbar-thumb {
-  background-color: #fbb03b;
-  border-radius: 3px;
-}
-.carousel::-webkit-scrollbar-track {
-  background-color: transparent;
-}
