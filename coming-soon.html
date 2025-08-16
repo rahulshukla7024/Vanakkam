@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Launching Soon</title>
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            height: 100vh;
+            background: url('COMING SOONmain.png') no-repeat center center fixed;
+            background-size: cover;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .container {
+      background: rgba(0,0,0,0.6);
+      padding: 40px;
+      border-radius: 12px;
+      max-width: 400px;
+      width: 90%;
+    }
+
+    h1 {
+      margin-bottom: 20px;
+      font-size: 2rem;
+    }
+
+    form {
+      display: flex;
+      gap: 10px;
+      position: absolute;
+      bottom: 280px;
+      
+    }
+
+    input {
+      flex: 1;
+      min-width: 500px; 
+      padding: 12px;
+      border: none;
+      border-radius: 6px;
+      font-size: 1rem;
+      text-align: left;
+    
+    }
+    
+
+    button {
+      padding: 12px 18px;
+      border: none;
+      border-radius: 6px;
+      background: #ff4081;
+      color: white;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #e73370;
+    }
+
+    #message {
+      margin-top: 15px;
+      font-size: 0.9rem;
+    }
+    .insta-link {
+  display: inline-block;
+}
+    .insta-icon {
+  position: relative;
+  bottom:-210px;
+  
+  display: block;              /* removes inline gaps */
+  transition: transform 0.3s ease;
+}
+
+.insta-icon:hover {
+  transform: scale(1.2);
+}
+
+        
+    </style>
+    <form id="notifyForm" >
+      <input type="email" id="email" placeholder="Enter your email" required >
+      <button type="submit">Notify Me</button>
+    </form>
+    <p id="message"></p>
+  </div>
+
+  <script>
+    const form = document.getElementById("notifyForm");
+    const message = document.getElementById("message");
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const email = document.getElementById("email").value;
+
+      try {
+        const response = await fetch("https://script.google.com/macros/s/AKfycbwgYXjQ1YrQyn7GdHBLaR1pJZZWH3jj59Y5shFJx5itZj5bmV46k8SLkE-H9iPBeOkq8Q/exec", {
+          method: "POST",
+          body: JSON.stringify({ email }),
+          headers: { "Content-Type": "application/json" }
+        });
+
+        if (response.ok) {
+          message.textContent = "✅ Thanks! You’ll be notified.";
+          form.reset();
+        } else {
+          message.textContent = "❌ Something went wrong. Try again.";
+        }
+      } catch (error) {
+        message.textContent = "⚠️ Network error.";
+      }
+    });
+  </script>
+  
+</head>
+<body>
+  <a href="https://instagram.com/yourprofile" target="_blank" class="insta-link">
+  <img src="promptnest insta.png" alt="Instagram" class="insta-icon">
+</a>
+ 
+</body>
+</html>
